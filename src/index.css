@@ -1,0 +1,14 @@
+@import 'tailwindcss'; 
+
+
+/* Kumbh Sans */
+@theme {
+    --color-primary: hsl(26, 100%, 55%);
+    --color-secondary: hsl(25, 100%, 94%);
+    --color-verydark: hsl(220, 13%, 13%);
+    --color-darkgrayish: hsl(219, 9%, 45%);
+    --color-grayish: hsl(220, 14%, 75%);
+    --color-lightgrayish: hsl(223, 64%, 98%);
+    --color-white: hsl(0, 0%, 100%);
+    --font-primarySize: 16px;
+}
