@@ -1,0 +1,41 @@
+import { Trash2 } from 'lucide-react';
+import type { CartItems } from '../types';
+
+type CartProps = {
+    carts: CartItems[],
+    setCart: React.Dispatch<React.SetStateAction<CartItems[]>>
+}
+
+function Cart({
+    carts, 
+    setCart
+}: CartProps) {
+
+
+    // delete cart item function
+    function handleDeleteCartItem(id: string){
+        setCart(prevCart => prevCart.filter(item => item.id !== id));
+    }
+
+
+    return (
+        <div className='max-w-[400px] bg-white p-6 rounded-lg shadow-lg w-[350px]'>
+            <h2 className='border-b border-grayish font-semibold pb-2 text-sm text-darkgrayish'>Cart</h2>
+            {carts.length === 0 ? (
+                <p className='mt-2 text-sm text-darkgrayish'>Your cart is empty</p>
+            ) : (
+                carts.map((item, index) => (
+                    <div key={index} className='flex items-center justify-between mb-4 mt-4'>
+                        <img src={item.image} alt={item.productName} className='w-8 h-8' />
+                        <div>
+                            <p className='text-sm font-semibold'>{item.productName}</p>
+                            <p className='text-sm'>${item.productPrice.toFixed(2)} x {item.quantity} = <span className='font-semibold'>${(item.productPrice * item.quantity).toFixed(2)}</span></p>
+                        </div>
+                        <button className='cursor-pointer' onClick={() => handleDeleteCartItem(item.id)}><Trash2 className='text-red-500' /></button>
+                    </div>
+                ))
+            )}
+        </div>
+    )
+}
+export default Cart
