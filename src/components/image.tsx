@@ -1,15 +1,19 @@
+import { useDispatch } from 'react-redux';
+import { changeImage } from '../slices/cartSlice';
 import type { ImageThumbnail } from '../types';
 
 type ImageProps = {
     thumbnail: ImageThumbnail,
-    setCurrentImage: React.Dispatch<React.SetStateAction<string>>,
     currentImage: string
 }
 
-function Image({thumbnail, setCurrentImage, currentImage}: ImageProps) {
+function Image({thumbnail, currentImage}: ImageProps) {
+
+    const dispatch = useDispatch();
 
     function handleImageChange(src: string) {
-        setCurrentImage(src);
+        // console.log('Image clicked:', src);
+        dispatch(changeImage(src))
     }
 
     return (

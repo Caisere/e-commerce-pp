@@ -1,24 +1,22 @@
 import { Menu, ShoppingCart, X } from 'lucide-react';
-import type { CartItems } from '../types';
 import Cart from './cart';
 import { useState } from 'react';
-
-type CartProps = {
-    cart: CartItems[],
-    setCart: React.Dispatch<React.SetStateAction<CartItems[]>>,
-    setShowCart: React.Dispatch<React.SetStateAction<boolean>>,
-    showCart: boolean
-}
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '../store';
+import { displayCart } from '../slices/cartSlice';
 
 
-function Header({
-    cart, 
-    setCart, 
-    setShowCart, 
-    showCart
-}: CartProps) {
+
+
+function Header() {
 
     const [showMenu, setShowMenu] = useState<boolean>(false);
+
+    const cart = useSelector((state: RootState) => state.cart.cart);
+
+    const showCart = useSelector((state: RootState) => state.cart.showCart);
+
+    const dispatch = useDispatch();
 
     return (
         <>
@@ -62,7 +60,7 @@ function Header({
                 <div className="flex items-center gap-10">
                     <div className='relative'>
                         <div className='relative'>
-                            <div onClick={() => setShowCart(is => !is)} 
+                            <div onClick={() => dispatch(displayCart(!showCart))} 
                                 className='relative cursor-pointer'>
                                 <ShoppingCart />
                             </div>
@@ -74,7 +72,7 @@ function Header({
 
                         {showCart && 
                             <div className='absolute -right-20 top-20 md:-right-40 md:top-12'>
-                                <Cart carts={cart} setCart={setCart}/>
+                                <Cart />
                             </div>
                         }
                         

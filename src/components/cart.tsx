@@ -1,22 +1,24 @@
 import { Trash2 } from 'lucide-react';
-import type { CartItems } from '../types';
+// import type { CartItems } from '../types';
 import Button from '@mui/material/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '../store';
+import { removeCart } from '../slices/cartSlice';
 
 
-type CartProps = {
-    carts: CartItems[],
-    setCart: React.Dispatch<React.SetStateAction<CartItems[]>>
-}
 
-function Cart({
-    carts, 
-    setCart
-}: CartProps) {
+
+function Cart() {
+
+    const carts = useSelector((state: RootState) => state.cart.cart)
+
+    const dispatch = useDispatch();
 
 
     // delete cart item function
-    function handleDeleteCartItem(id: string){
-        setCart(prevCart => prevCart.filter(item => item.id !== id));
+    function handleDeleteCartItem(itemId: string){
+        dispatch(removeCart(itemId));
+        // setCart(prevCart => prevCart.filter(item => item.id !== id));
     }
 
 

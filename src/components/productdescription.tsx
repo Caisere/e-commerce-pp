@@ -1,35 +1,33 @@
 import { ShoppingCart } from 'lucide-react';
 import type { CartItems } from '../types';
-
-type ProductDescriptionProps = {
-    quantity: number,
-    setQuantity: React.Dispatch<React.SetStateAction<number>>,
-    setCart: React.Dispatch<React.SetStateAction<CartItems[]>>,
-    currentImage: string,
-    cart: CartItems[]
-}
+import { useDispatch, useSelector} from 'react-redux';
+import { addCart, decreaseQuantity, increaseQuantity } from '../slices/cartSlice';
+import type { RootState } from '../store';
+// import type { RootState } from '../store';
 
 
-function ProductDescription({
-    quantity, 
-    currentImage, 
-    setCart, 
-    setQuantity,
-    // cart
-}: ProductDescriptionProps) {
+
+
+function ProductDescription() {
+
+    const dispatch = useDispatch();
+
+    const quantity = useSelector((state: RootState) => state.cart.quantity);
+
+    const currentImage = useSelector((state: RootState) => state.cart.currentImage);
+
+    // const carts = useSelector((state: RootState) => state.cart.cart);
     
     const productPrice: number = 125;
     const productName: string = 'Fall Limited Edition Sneakers' 
 
 
     function handleReduceQuantity() {
-        if (quantity > 0) {
-            setQuantity(quantity => quantity - 1)
-        }
+        dispatch(decreaseQuantity());
     }
 
     function handleIncreaseQuantity() {
-        setQuantity(quantity => quantity + 1)
+        dispatch(increaseQuantity())
     }
 
     function handleSubmit() {
@@ -45,19 +43,7 @@ function ProductDescription({
             image: currentImage,
             quantity: quantity
         }
-
-        // console.log(exitProduct)
-        
-        setCart(cart => {
-            const exitProduct = cart?.findIndex(item => item.productName === cartItem.productName)
-            if(exitProduct !== -1) {
-                const updatedCart = [...cart];
-                updatedCart[exitProduct].quantity += quantity;
-                return updatedCart
-            }
-            return [...cart, cartItem]
-        });
-        setQuantity(0);
+        dispatch(addCart(cartItem))
     }
 
     return (

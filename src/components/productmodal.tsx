@@ -5,15 +5,18 @@ import Image from './image';
 import { imageThumbnials } from '../constant/constant';
 import { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
+import type { RootState } from '../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeModal } from '../slices/cartSlice';
 
-type ProductModalProps = {
-    showModal: boolean,
-    setShowModal: React.Dispatch<React.SetStateAction<boolean>>,
-    currentImage: string,
-    setCurrentImage: React.Dispatch<React.SetStateAction<string>>
-}
 
-function ProductModal({showModal, setShowModal, currentImage, setCurrentImage}: ProductModalProps) {
+function ProductModal() {
+
+    const showModal = useSelector((state: RootState) => state.cart.showModal)
+
+    const currentImage = useSelector((state: RootState) => state.cart.currentImage);
+
+    const dispatch = useDispatch()
 
     const [displayModal, setDisplayModal] = useState<boolean>(false);
 
@@ -24,7 +27,7 @@ function ProductModal({showModal, setShowModal, currentImage, setCurrentImage}: 
                 setDisplayModal(false);
             } else {
                 setDisplayModal(true);
-                console.log('Modal is displayed');
+                // console.log('Modal is displayed');
             }
         };
 
@@ -43,7 +46,7 @@ function ProductModal({showModal, setShowModal, currentImage, setCurrentImage}: 
     return (
         <Modal
             open={showModal}
-            onClose={() => setShowModal(false)}
+            onClose={() => dispatch(closeModal(false))}
             aria-labelledby="product-modal-title"
             aria-describedby="product-modal-description"
             className='flex items-center justify-center'
@@ -68,7 +71,7 @@ function ProductModal({showModal, setShowModal, currentImage, setCurrentImage}: 
                 }}
                 className='flex flex-col items-center justify-between gap-6'
             >
-                    <div className='absolute top-0 right-0' onClick={() => setShowModal(false)}>
+                    <div className='absolute top-0 right-0' onClick={() => dispatch(closeModal(false))}>
                         <Button><X className='text-white' /></Button>
                     </div>
                     <div className="flex items-center justify-center h-[400px] w-[400px] border-0">
@@ -83,7 +86,6 @@ function ProductModal({showModal, setShowModal, currentImage, setCurrentImage}: 
                             <Image 
                                 key={thumbnail.id}
                                 thumbnail={thumbnail} 
-                                setCurrentImage={setCurrentImage}
                                 currentImage={currentImage} 
                             />
                         ))}
