@@ -51,7 +51,7 @@ function Header({
                                     <X />
                                 </div>
                                 <p>Collections</p>
-                                <p>Men</p>
+                                <p className=''>Men</p>
                                 <p>Women</p>
                                 <p>About</p>
                                 <p>Contact</p>
@@ -79,10 +79,8 @@ function Header({
                         }
                         
                     </div>
-                    <div 
-                        // className='hover:border-1 hover:border-primary transition-all duration-300 rounded-full cursor-pointer'
-                    >
-                        <img src="/image-avatar.png"className="w-8 h-8" alt="" />
+                    <div>
+                        <img src="/image-avatar.png"className="w-8 h-8 border-0 hover:border-1 hover:border-primary transition-color rounded-full duration-300" alt="" />
                     </div>
                 </div>
             </div>

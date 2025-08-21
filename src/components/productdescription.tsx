@@ -6,6 +6,7 @@ type ProductDescriptionProps = {
     setQuantity: React.Dispatch<React.SetStateAction<number>>,
     setCart: React.Dispatch<React.SetStateAction<CartItems[]>>,
     currentImage: string,
+    cart: CartItems[]
 }
 
 
@@ -13,7 +14,8 @@ function ProductDescription({
     quantity, 
     currentImage, 
     setCart, 
-    setQuantity
+    setQuantity,
+    // cart
 }: ProductDescriptionProps) {
     
     const productPrice: number = 125;
@@ -43,8 +45,18 @@ function ProductDescription({
             image: currentImage,
             quantity: quantity
         }
+
+        // console.log(exitProduct)
         
-        setCart(cart => [...cart, cartItem]);
+        setCart(cart => {
+            const exitProduct = cart?.findIndex(item => item.productName === cartItem.productName)
+            if(exitProduct !== -1) {
+                const updatedCart = [...cart];
+                updatedCart[exitProduct].quantity += quantity;
+                return updatedCart
+            }
+            return [...cart, cartItem]
+        });
         setQuantity(0);
     }
 
@@ -79,7 +91,7 @@ function ProductDescription({
                     </button>
                 </div>
                 <button 
-                    className="bg-orange-500 w-full flex-1 text-verydark text-sm font-bold px-4 md:px-10 py-4 md:py-4 rounded-lg flex items-center justify-center gap-3 md:gap-2  cursor-pointer"
+                    className="bg-orange-500 w-full flex-1 text-verydark text-sm font-bold px-4 md:px-10 py-4 md:py-4 rounded-lg flex items-center justify-center gap-3 md:gap-2  cursor-pointer hover:bg-orange-500/80 transition-colors duration-300 hover:text-white"
                     onClick={handleSubmit}
                 >
                     <ShoppingCart />

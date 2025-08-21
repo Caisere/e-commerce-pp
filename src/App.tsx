@@ -4,6 +4,7 @@ import Header from './components/header';
 import Image from './components/image';
 import ProductDescription from './components/productdescription';
 import { imageThumbnials } from './constant/constant';
+import ProductModal from './components/productmodal';
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
     const [quantity, setQuantity] = useState<number>(0);
     const [showCart, setShowCart] = useState<boolean>(false)
     const [cart, setCart] = useState<CartItems[]>([])
+    const [showModal, setShowModal] = useState<boolean>(false);
 
 
     return (
@@ -25,7 +27,12 @@ function App() {
             <div className="flex flex-col md:flex-row items-center justify-between mt-16 w-full">
                 <div className="flex flex-col items-center justify-center gap-6 flex-1">
                     <div>
-                        <img src={currentImage} alt="Product Image" className="w-[80%] md:w-[70%] h-auto mx-auto rounded-lg" />
+                        <img 
+                            src={currentImage} 
+                            alt="Product Image" 
+                            className="w-[80%] md:w-[70%] h-auto mx-auto rounded-lg"
+                            onClick={() => setShowModal(true)}
+                        />
                     </div>
                     <div className="flex gap-4 md:overflow-x-auto">
                         {imageThumbnials.map((thumbnail) => (
@@ -43,10 +50,19 @@ function App() {
                         currentImage={currentImage}
                         setCart={setCart}
                         setQuantity={setQuantity} 
-                        quantity={quantity} 
+                        quantity={quantity}
+                        cart={cart}
                     />
                 </div>
             </div>
+            
+            <ProductModal 
+                showModal={showModal} 
+                setShowModal={setShowModal} 
+                currentImage={currentImage}
+                setCurrentImage={setCurrentImage}
+            />
+
         </main>
     )
 }

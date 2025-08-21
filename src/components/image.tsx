@@ -18,7 +18,7 @@ function Image({thumbnail, setCurrentImage, currentImage}: ImageProps) {
                 key={thumbnail.id} 
                 src={thumbnail.src} 
                 alt={thumbnail.alt} 
-                className={`w-18 h-18 md:w-24 md:h-24 rounded-lg cursor-pointer ${currentImage === thumbnail.src ? 'border-2 border-orange-500 opacity-50' : ''}`} 
+                className={`w-18 h-18 md:w-24 md:h-24 rounded-lg cursor-pointer ${currentImage === thumbnail.src ? 'border-2 border-orange-500 opacity-50' : ''} hover:opacity-70`} 
                 onClick={() => handleImageChange(thumbnail.src)}
             />
         </>

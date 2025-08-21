@@ -1,5 +1,7 @@
 @import 'tailwindcss'; 
 
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap');
+
 
 /* Kumbh Sans */
 @theme {
@@ -11,4 +13,11 @@
     --color-lightgrayish: hsl(223, 64%, 98%);
     --color-white: hsl(0, 0%, 100%);
     --font-primarySize: 16px;
+}
+
+@layer base {
+    body {
+        font-family: "Kumbh Sans", sans-serif;;
+    }
+
 }
